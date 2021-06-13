@@ -1,54 +1,46 @@
 import React, { useEffect, useState } from "react";
+// import {useHistory} from 'react-router-dom';
 import { axiosWithAuth } from "../helpers/axiosWithAuth";
 
 import Bubbles from "./Bubbles";
 import ColorList from "./ColorList";
 
 // import { editColorService, deleteColorService } from '../services/colorServices';
-import {fetchColorService} from '../services/fetchColorService';
-// const  initialColor = {
-//   color: '',
-//   code: {hex: ''}
-// };
+// import {fetchColorService} from '../services/fetchColorService';
 
 const BubblePage = () => {
+  // const initialColor = {
+  //   color: "",
+  //   code: { hex: "" }
+  // };
   const [colors, setColors] = useState([]);
   const [editing, setEditing] = useState(false);
+  // const history = useHistory();
+
 
   useEffect(()=>{
-    fetchColorService()
+    
     axiosWithAuth()
-      .get('/colors')  
+      .get(`/colors`)  
       .then((res)=>{
         // console.log(res)// returning the data
         setColors(res.data) // rendering!!!! OMFG!
       })
-      .catch((err)=>{
-        console.log(err)
-      })
-  }, []) // almost forgot my [] to keep the call from going infinite... i mean i may have crashed my browser before i caught my error...
+      .catch(err=>console.log(err))
+  }, []) // almost forgot my [] to keep the call from going infinite, i may have crashed my browser before i caught my error...
 
   const toggleEdit = (value) => {
     setEditing(value);
   };
 
   const saveEdit = (editColor) => {
-    editing.preventDefault();
-  //   axiosWithAuth()
-  //     .put(`/colors/${editing.id}`, editing)
-  //     .then((res)=>{
-
-  //       setEditing(false)
-  //     })
-  //     .catch((err)=>{
-  //       console.log(err, 'Error on editColor')
-  //     })
-  };
+    editColor.preventDefault();
+    // editColorService(editColor);
+  };    
 
   const deleteColor = (colorToDelete) => {
     colorToDelete.preventDefault();
-    // axiosWithAuth()
-    //   .delete('/colors/${}')
+    // deleteColorService(colorToDelete)
   };
 
   return (

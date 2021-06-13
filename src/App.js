@@ -31,8 +31,8 @@ function App() {
       <Switch>
         <PrivateRoute path='/bubbles' component={BubblePage} />
 
-        <Route path="/" component={Login} />
-        <Route component={Login} />
+        <Route exact path="/" component={Login} />
+
       </Switch>  
       </div>
     </Router>

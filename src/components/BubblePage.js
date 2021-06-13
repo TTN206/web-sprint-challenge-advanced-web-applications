@@ -11,17 +11,17 @@ const BubblePage = () => {
   const [colors, setColors] = useState([]);
   const [editing, setEditing] = useState(false);
 
-  // 1.
   useEffect(()=>{
     axiosWithAuth()
-      .get()
+      .get('/colors')  
       .then((res)=>{
-        console.log(res)
+        // console.log(res)// returning the data
+        setColors(res.data) // rendering!!!! OMFG!
       })
       .catch((err)=>{
         console.log(err)
       })
-  })
+  }, []) // almost forgot my [] to keep the call from going infinite... i mean i may have crashed my browser before i caught my error...
 
   const toggleEdit = (value) => {
     setEditing(value);
@@ -44,5 +44,5 @@ const BubblePage = () => {
 export default BubblePage;
 
 //Task List:
-//1. When the component mounts, make an axios call to retrieve all color data and push to state.
+// [x] 1. When the component mounts, make an axios call to retrieve all color data and push to state.
 //2. Complete saveEdit, deleteColor functions

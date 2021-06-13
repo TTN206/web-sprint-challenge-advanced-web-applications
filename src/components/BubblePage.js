@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { axiosWithAuth } from "../helpers/axiosWithAuth";
 
 import Bubbles from "./Bubbles";
 import ColorList from "./ColorList";
@@ -9,6 +10,18 @@ import ColorList from "./ColorList";
 const BubblePage = () => {
   const [colors, setColors] = useState([]);
   const [editing, setEditing] = useState(false);
+
+  // 1.
+  useEffect(()=>{
+    axiosWithAuth()
+      .get()
+      .then((res)=>{
+        console.log(res)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+  })
 
   const toggleEdit = (value) => {
     setEditing(value);

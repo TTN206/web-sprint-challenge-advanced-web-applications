@@ -30,7 +30,7 @@ const Login = () => {
     axiosWithAuth()
       .post('/login', formValues)
       .then((res)=>{
-        console.log(res)
+        // console.log(res)
         localStorage.setItem('token', res.data.payload)
         history.push('/bubbles')
       })
@@ -65,7 +65,7 @@ const Login = () => {
 
           <button>Login</button>
 
-          {formValues.username ==='Lambda' && formValues.password === 'i<3Lambd4' ? null : <p data-testid="errorMessage" className="error">{error}</p>}
+          {formValues.username ==='Lambda' && formValues.password === 'School' ? null : <p data-testid="errorMessage" className="error">{error}</p>}
         </form>
       </div>
 

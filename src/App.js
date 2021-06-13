@@ -1,18 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Login from "./components/Login";
 import "./styles.scss";
 // importing components and other nessesary pieces
-import {axiosWithAuth} from './helpers/axiosWithAuth';
 import PrivateRoute from './components/PrivateRoute';
 import BubblePage from './components/BubblePage';
-
+import {axiosWithAuth} from './helpers/axiosWithAuth';
 function App() {
 
   const logout = () =>{
-    localStorage.removeItem('token');
-    window.location.href='/';
+    axiosWithAuth()
+      .post('/logout')
+      .then((res)=>{
+        console.log(res, 'we out!')
+        localStorage.removeItem('token');
+        window.location.href='/';
+      })
+      .catch((err) => err)
   }
 
   return (
@@ -37,4 +42,4 @@ export default App;
 
 //Task List:
 // [x] 1. Render BubblePage as a PrivateRoute
-// [ ] 2. Build the logout button to remove the localStorage Item.
+// [x] 2. Build the logout button to remove the localStorage Item.

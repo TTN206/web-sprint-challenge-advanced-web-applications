@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-// import {useHistory} from 'react-router-dom';
 import { axiosWithAuth } from "../helpers/axiosWithAuth";
-
 import Bubbles from "./Bubbles";
 import ColorList from "./ColorList";
-
+// import {useHistory} from 'react-router-dom';
 // import { editColorService, deleteColorService } from '../services/colorServices';
 // import {fetchColorService} from '../services/fetchColorService';
 
@@ -19,9 +17,9 @@ const BubblePage = () => {
 
 
   useEffect(()=>{
-    
+    // fetchColorService()
     axiosWithAuth()
-      .get(`/colors`)  
+      .get('/colors')  
       .then((res)=>{
         // console.log(res)// returning the data
         setColors(res.data) // rendering!!!! OMFG!
@@ -34,19 +32,19 @@ const BubblePage = () => {
   };
 
   const saveEdit = (editColor) => {
-    editColor.preventDefault();
+    // editColor.preventDefault();
     // editColorService(editColor);
   };    
 
   const deleteColor = (colorToDelete) => {
-    colorToDelete.preventDefault();
+    // colorToDelete.preventDefault();
     // deleteColorService(colorToDelete)
   };
 
   return (
     <div className="container">
       <ColorList colors={colors} editing={editing} toggleEdit={toggleEdit} saveEdit={saveEdit} deleteColor={deleteColor}/>
-      <Bubbles colors={colors}/>
+      <Bubbles data-test-id='bubbles' colors={colors}/>
     </div>
   );
 };

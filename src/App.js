@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./components/Login";
 import "./styles.scss";
 // importing components and other nessesary pieces
-import PrivateRoute from './components/PrivateRoute';
+import {PrivateRoute} from './helpers/PrivateRoute';
 import BubblePage from './components/BubblePage';
 import {axiosWithAuth} from './helpers/axiosWithAuth';
 function App() {
@@ -15,7 +15,7 @@ function App() {
       .then((res)=>{
         console.log(res, 'we out!')
         localStorage.removeItem('token');
-        window.location.href='/';
+        window.location.href='/login';
       })
       .catch((err) => err)
   }
@@ -31,7 +31,8 @@ function App() {
       <Switch>
         <PrivateRoute path='/bubbles' component={BubblePage} />
 
-        <Route exact path="/" component={Login} />
+        <Route path="/" component={Login} />
+        <Route component={Login} />
       </Switch>  
       </div>
     </Router>

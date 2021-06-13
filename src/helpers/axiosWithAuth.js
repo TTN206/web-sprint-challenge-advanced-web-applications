@@ -11,7 +11,8 @@ export const axiosWithAuth = () =>{
             .create({
                 baseURL:'http://localhost:5000/api', // from handlers.js line 93: const urlBase = 'http://localhost:5000/api';
                 headers: {
-                    authorization: token
+                    "Content-Type": "application/json",
+                    Authorization: `${token}`,
                 }
             });
 }

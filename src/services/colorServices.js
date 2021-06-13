@@ -1,8 +1,4 @@
 import {axiosWithAuth} from '../helpers/axiosWithAuth';
-// import React, { useEffect, useState } from "react";
-// import {useHistory} from 'react-router-dom';
-// import Bubbles from "./Bubbles";
-// import ColorList from "./ColorList";
 
 export const editColorService = () => {
     axiosWithAuth()
@@ -17,7 +13,7 @@ export const editColorService = () => {
 
 export const deleteColorService = () => {
     axiosWithAuth()
-      .delete(`/colors`)
+      .delete(`/colors/${color.id}`)
       .then(res => {
           console.log(res.data)
         // setColors(res.data)

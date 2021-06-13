@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 // import axios from 'axios';
 import {useHistory} from 'react-router-dom';
 import {axiosWithAuth} from '../helpers/axiosWithAuth';
@@ -14,9 +14,10 @@ const Login = () => {
   }); 
   // [x] 2. Add whatever state nessiary for form functioning.
   //replace with error state
+  // const initialError = {error: ''}
   const [error, setError] = useState('username and/or password not valid');
 
-  const history = useHistory();
+  const {push} = useHistory();
   
   const handleChanges = (e) =>{
     setFormValues({...formValues, [e.target.name]:e.target.value})
@@ -24,20 +25,22 @@ const Login = () => {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    // will be adding an axios call...
-    // axios
-    //   .post('http://localhost:3000') // placeholder 'http://localhost:3000'
+
     axiosWithAuth()
       .post('/login', formValues)
       .then((res)=>{
         // console.log(res)
         localStorage.setItem('token', res.data.payload)
-        history.push('/bubbles')
+        push('/bubbles')
       })
       .catch((err)=>{
         console.log(err.response, 'Houston, we got problems')
       })
   }
+
+  useEffect(()=>{
+
+  },[])
 // [x] 3. MAKE SURE YOUR USERNAME AND PASSWORD INPUTS INCLUDE data-testid="username" and data-testid="password"
 // [x] 4. If either the username or password is not entered, display the following words with the p tag provided: Username or Password not valid.
 // [x] 5. If the username / password is equal to Lambda / i<3Lambd4, save that token to localStorage.
@@ -46,24 +49,28 @@ const Login = () => {
       <h1>Welcome to the Bubble App!</h1>
       <div data-testid="loginForm" className="login-form">
         <form onSubmit={handleSubmit}>
+          <label htmlFor='username'>Username: </label>
           <input
             data-testid='username'
             name='username'
             type='text'
+            id='username'
             value={formValues.username}
-            placeholder='username'
+            placeholder='enter username'
             onChange={handleChanges}
           />
+          <label htmlFor='password'>Password: </label>
           <input 
             data-testid='password'
             name='password'
-            type='text'
+            type='password'
+            id='password'
             value={formValues.password}
-            placeholder='password'
+            placeholder='enter password'
             onChange={handleChanges}
           />
 
-          <button>Login</button>
+          <button type='submit'>Login</button>
 
           {formValues.username ==='Lambda' && formValues.password === 'School' ? null : <p data-testid="errorMessage" className="error">{error}</p>}
         </form>

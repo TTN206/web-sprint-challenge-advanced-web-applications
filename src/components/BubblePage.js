@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { axiosWithAuth } from "../helpers/axiosWithAuth";
 import Bubbles from "./Bubbles";
 import ColorList from "./ColorList";
-// import {useHistory} from 'react-router-dom';
+
 // import { editColorService, deleteColorService } from '../services/colorServices';
 import {fetchColorService} from '../services/fetchColorService';
 
@@ -13,12 +13,12 @@ const BubblePage = () => {
   // };
   const [colors, setColors] = useState([]);
   const [editing, setEditing] = useState(false);
-  // const history = useHistory();
+
 
 
   useEffect(()=>{ 
     fetchColorService()
-    // axiosWithAuth()
+    // axiosWithAuth() // dont need to call b/c the fetchColorService does this already!
     //   .get('/colors')  
       .then((res)=>{
         console.log(res)// returning the data
@@ -26,7 +26,7 @@ const BubblePage = () => {
       })
       .catch(err=>console.log(err))
   }, []) // almost forgot my [] to keep the call from going infinite, i may have crashed my browser before i caught my error...
-  console.log(colors);
+  console.log(colors); // there was a moment that i really wanted to smash my keyboard.... 
 
   const toggleEdit = (value) => {
     setEditing(value);
@@ -44,8 +44,17 @@ const BubblePage = () => {
 
   return (
     <div className="container">
-      <ColorList colors={colors} editing={editing} toggleEdit={toggleEdit} saveEdit={saveEdit} deleteColor={deleteColor}/>
+
+
+      <ColorList colors={colors} editing={editing} toggleEdit={toggleEdit} saveEdit={saveEdit} deleteColor={deleteColor} />
+
+
+
       <Bubbles data-test-id='bubbles' colors={colors}/>
+      
+      <div>
+        <button onClick={()=> setEditing(!editing)}>Add Color</button>
+      </div>  
     </div>
   );
 };
